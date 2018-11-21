@@ -1,0 +1,19 @@
+div.cl-matching {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
+  > div {
+    padding: 0;
+
+    margin: 0;
+  }
+
+  div:first-child {
+    width: 40%;
+  }
+
+  div:last-child {
+    width: 60%;
+  }
+}

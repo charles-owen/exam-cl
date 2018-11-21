@@ -1,0 +1,139 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+div.cl-exam {
+  position: relative;
+  background-color: white;
+  width: 8.5in;
+  margin: 0 auto;
+  padding: 0.65in 1in;
+  box-sizing: border-box; }
+  div.cl-exam p, div.cl-exam h1, div.cl-exam h2, div.cl-exam h3, div.cl-exam figure, div.cl-exam header, div.cl-exam footer {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";
+    font-size: 11pt; }
+  div.cl-exam p {
+    margin: 1em 0; }
+  div.cl-exam img {
+    max-width: 100%; }
+  div.cl-exam header {
+    position: relative;
+    display: table;
+    width: 100%;
+    min-width: 100%; }
+    div.cl-exam header div:first-child {
+      display: table-cell;
+      width: 50%;
+      padding-right: 1em; }
+    div.cl-exam header div:last-child {
+      display: table-cell;
+      width: 50%; }
+    div.cl-exam header h1 {
+      position: relative;
+      left: 0;
+      top: 0;
+      margin: 0;
+      border: 0;
+      padding: 0;
+      font-size: 20pt;
+      font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif"; }
+    div.cl-exam header h2 {
+      position: relative;
+      text-align: right;
+      font-size: 20pt;
+      font-style: italic; }
+  div.cl-exam form.cl-exam-form input.cl-exam-name {
+    width: 2em;
+    text-align: center; }
+  div.cl-exam form.cl-exam-form input.cl-exam-seed {
+    width: 5em;
+    text-align: center; }
+  div.cl-exam form.cl-exam-form input[type='submit'] {
+    width: 5em; }
+  div.cl-exam span.cl-code {
+    display: inline-block;
+    width: 1.1em; }
+  div.cl-exam div.cl-exam-columns {
+    display: table;
+    margin-top: -11pt;
+    width: 100%; }
+    div.cl-exam div.cl-exam-columns > div:first-child {
+      display: table-cell;
+      width: 50%;
+      padding-right: 1em; }
+    div.cl-exam div.cl-exam-columns > div:last-child {
+      display: table-cell;
+      width: 50%; }
+  div.cl-exam span.cl-exam-underline {
+    display: inline-block;
+    border-bottom: 1px solid black;
+    text-align: center; }
+  div.cl-exam pre.code {
+    background-image: none;
+    border: 0;
+    padding: 0;
+    box-shadow: none; }
+  div.cl-exam code {
+    color: black; }
+  div.cl-exam .break {
+    border-top: 1pt solid black;
+    clear: both; }
+  div.cl-exam span.blank {
+    display: inline-block;
+    min-width: 8em;
+    border-bottom: 1.5pt solid black;
+    text-align: center; }
+  div.cl-exam .pt10, div.cl-exam .pt10 p {
+    font-size: 10pt;
+    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif"; }
+  div.cl-exam .cl-single-space {
+    margin-top: 0;
+    margin-bottom: 0; }
+  div.cl-exam .small {
+    font-size: 10pt; }
+  div.cl-exam .smaller {
+    font-size: 9pt; }
+  div.cl-exam div.cl-matching {
+    width: 100%;
+    display: flex;
+    flex-direction: row; }
+    div.cl-exam div.cl-matching > div {
+      padding: 0;
+      margin: 0; }
+    div.cl-exam div.cl-matching div:first-child {
+      width: 40%; }
+    div.cl-exam div.cl-matching div:last-child {
+      width: 60%; }
+  div.cl-exam div.cl-exam-multi {
+    margin: 1em 0; }
+    div.cl-exam div.cl-exam-multi p {
+      margin: 0; }
+    div.cl-exam div.cl-exam-multi p.cl-exam-answer {
+      margin-left: 1em; }
+
+@page {
+  margin: 1in;
+  size: letter; }
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; }
+
+  div.cl-exam {
+    zoom: 1.3;
+    position: relative;
+    background-color: white;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box; }
+    div.cl-exam form.cl-exam-form {
+      display: none; }
+    div.cl-exam .break {
+      border: 0;
+      page-break-before: always; } }
