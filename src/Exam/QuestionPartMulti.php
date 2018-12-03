@@ -1,14 +1,14 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: charl
- * Date: 10/12/2018
- * Time: 7:40 PM
+ * @file
+ * Class that represents a multiple choice question for an exam.
  */
 
 namespace CL\Exam;
 
-
+/**
+ * Class that represents a multiple choice question for an exam.
+ */
 class QuestionPartMulti {
 
 
@@ -64,6 +64,13 @@ class QuestionPartMulti {
 		}
 	}
 
+	/**
+	 * Present the question.
+	 * @param Question $question
+	 * @param string $part Question part (as in a,b,c)
+	 * @param bool|null $answered True if displayed as answered
+	 * @return string
+	 */
 	public function present_actual(Question $question, $part = '', $answered = null) {
 		$html = <<<HTML
 <div class="cl-exam-multi"><p>$part $this->question</p>
@@ -89,6 +96,11 @@ HTML;
 		return $html;
 	}
 
+	/**
+	 * Add an answer
+	 * @param string $text Answer to add
+	 * @param bool $correct True if this answer is correct.
+	 */
 	public function answer($text, $correct=false) {
 		$this->answers[] = ['text'=>$text, 'correct'=>$correct];
 	}

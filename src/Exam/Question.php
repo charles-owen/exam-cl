@@ -12,7 +12,11 @@ namespace CL\Exam;
  */
 class Question {
 
-
+	/**
+	 * Question constructor.
+	 * @param ExamView $view
+	 * @param int $num Question number
+	 */
 	public function __construct(ExamView $view, $num) {
 		$this->view = $view;
 		$this->num = $num;
@@ -77,7 +81,11 @@ class Question {
 		}
 	}
 
-
+	/**
+	 * Present the question
+	 * @param string $part Optional question part (like 'a', 'b')
+	 * @return string HTML
+	 */
 	public function present($part="") {
 		$html = $this->present_actual($part, false);
 		
@@ -114,7 +122,12 @@ HTML;
 		$letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		return $letters[$i];
 	}
-	
+
+	/**
+	 * Generate a question label as a roman numeral
+	 * @param int $cnt
+	 * @return string
+	 */
 	protected function label($cnt) {
 		if($cnt <= 1) {
 			return '<p>';
@@ -140,7 +153,13 @@ HTML;
 		$this->values[$name] = $r;
 		return $r;
 	}
-	
+
+	/**
+	 * Generate a random floating point alue
+	 * @param float $min
+	 * @param float $max
+	 * @return float Random value
+	 */
 	protected static function rand_float($min, $max) {
 		$f = mt_rand(0, 100000) * 0.00001;
 		return $min + (1 - $f) * $max;
@@ -159,16 +178,19 @@ HTML;
 		$f = self::rand_float(0, 1);
 		return $prob >= $f;
 	}
-	
+
+	/// Roman numbers from 1-10
 	protected $roman = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 
 		'ix', 'x'];
-	
+
+	/// Count of how many sub-parts of this question.
 	protected $cnt = 0;
 	
 	private $values = [];
 
 	private $question = '';
 
+	/// The view class
 	protected $view;
 	private $num;
 }

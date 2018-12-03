@@ -10,8 +10,17 @@ use CL\Site\Site;
 use CL\Site\System\Server;
 use CL\Course\Member;
 
+/**
+ * View class for automatic exam creation.
+ */
 class ExamView extends \CL\Course\View {
-
+	/**
+	 * ExamView constructor.
+	 * @param Site $site Site object
+	 * @param array $get $_GET
+	 * @param array $options Options to pass to startup
+	 * @param Server|null $server Server object
+	 */
 	public function __construct(Site $site, array $get, array $options = [], Server $server=null) {
 		if($server === null) {
 			$server = new Server();

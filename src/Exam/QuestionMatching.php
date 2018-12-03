@@ -6,9 +6,15 @@
 
 namespace CL\Exam;
 
-
+/**
+ * Matching questions for an exam.
+ */
 class QuestionMatching extends Question {
-
+	/**
+	 * QuestionMatching constructor.
+	 * @param ExamView $view View that is displaying the exam
+	 * @param int $num Question number
+	 */
 	public function __construct(ExamView $view, $num) {
 		parent::__construct($view, $num);
 
@@ -19,6 +25,14 @@ QUESTION;
 
 	}
 
+	/**
+	 * Add a matching pair
+	 * @param string $a First item
+	 * @param string $b Matched item
+	 * @param string $exclusive If not null, this is a string that represents an
+	 * exclusivity group. Only one item with the same $exclusive value is allowed
+	 * on an exam.
+	 */
 	public function add($a, $b, $exclusive=null) {
 		$this->questions[] = ['a'=>$a, 'b'=>$b, 'exclusive'=>$exclusive];
 	}
@@ -69,7 +83,14 @@ QUESTION;
 		}
 	}
 
-
+	/**
+	 * Present the exam question
+	 * @param string $part The question part (like 'a', 'b', etc.)
+	 * @param string $answered If true, question is displayed answered. If null, answered are displayed
+	 * if $this->view->key is true.
+	 * @param string $class Aditional class to add to the HTML
+	 * @return string HTML
+	 */
 	public function present_actual($part = '', $answered = null, $class=null) {
 		$html = parent::present_actual($part, $answered);
 
