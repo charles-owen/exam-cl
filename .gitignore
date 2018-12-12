@@ -2,6 +2,9 @@
 tests/config.php
 /html
 /vendor
+_notes
+dwsync.xml
+
 
 # IDEs and editors
 /.idea

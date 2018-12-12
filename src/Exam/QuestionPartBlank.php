@@ -1,16 +1,13 @@
 <?php
 /**
  * @file
- * Class that represents a multiple choice question part for an exam.
+ * A question part where we fill in the blank.
  */
 
 namespace CL\Exam;
 
-/**
- * Class that represents a multiple choice question for an exam.
- */
-class QuestionPartMulti extends QuestionPart {
 
+class QuestionPartBlank extends QuestionPart {
 
 	/**
 	 * Property get magic method
@@ -47,6 +44,10 @@ class QuestionPartMulti extends QuestionPart {
 				$this->question = $value;
 				break;
 
+			case 'answer':
+				$this->answers[] = $value;
+				break;
+
 			default:
 				parent::__set($property, $value);
 				break;
@@ -62,38 +63,31 @@ class QuestionPartMulti extends QuestionPart {
 	 */
 	public function present_actual(Question $question, $part = '', $answered = null) {
 		$html = <<<HTML
-<div class="cl-exam-multi"><p>$part $this->question</p>
+<div><p>$part 
 HTML;
 
-		$imgs = $question->view->site->root . '/vendor/cl/exam/img';
-		shuffle($this->answers);
-		foreach($this->answers as $answer) {
-			$html .= '<p class="cl-exam-answer">';
-			if($answered === true && $answer['correct']) {
-				$html .= '<img src="' . $imgs . '/box-x.png">';
-			} else {
-				$html .= '<img src="' . $imgs . '/box.png">';
+		if(!$answered) {
+			$html .= $this->question;
+		} else {
+			$question = $this->question;
+			$answers = '';
+			foreach($this->answers as $answer) {
+				if(strlen($answers) > 0) {
+					$answers .= ' <em>or</em> ';
+				}
+
+				$answers .= $answer;
 			}
 
-			$html .= <<<HTML
- {$answer['text']}</p>
-HTML;
+			$html .= preg_replace('/\s_*\s/',
+				' ___' . $answers . '___ ', $question);
 		}
 
-		$html .= '</div>';
+
+		$html .= '</p></div>';
 
 		return $html;
 	}
-
-	/**
-	 * Add an answer
-	 * @param string $text Answer to add
-	 * @param bool $correct True if this answer is correct.
-	 */
-	public function answer($text, $correct=false) {
-		$this->answers[] = ['text'=>$text, 'correct'=>$correct];
-	}
-
 
 	private $question = '';
 	private $answers = [];

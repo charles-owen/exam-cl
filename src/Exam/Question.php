@@ -106,8 +106,10 @@ class Question {
 	 */
 	public function present_actual($part='', $answered=null, $class=null) {
 		$cls = $class !== null ? 'class="' . $class . '"' : '';
+		$question = $this->question;
+		$question = preg_replace('/\R\R/', '</p><p>', $question);
 		$html = <<<HTML
-<p $cls>$this->num $this->question</p>
+<p $cls>$this->num $question</p>
 HTML;
 		$this->cnt = 0;
 		return $html;
