@@ -42,6 +42,9 @@ class Question {
 			case 'view':
 				return $this->view;
 
+			case 'rubric':
+				return $this->rubric;
+
 			default:
 				$trace = debug_backtrace();
 				trigger_error(
@@ -69,6 +72,9 @@ class Question {
 				$this->question = $value;
 				break;
 
+			case 'rubric':
+				$this->rubric = $value;
+				break;
 
 			default:
 				$trace = debug_backtrace();
@@ -195,4 +201,7 @@ HTML;
 	/// The view class
 	protected $view;
 	private $num;
+
+	// Display additional rubric information flag
+	private $rubric = false;
 }
