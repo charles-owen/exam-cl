@@ -6,27 +6,10 @@
 
 namespace CL\Exam;
 
-
+/**
+ * A question part where we fill in the blank.
+ */
 class QuestionPartBlank extends QuestionPart {
-
-	/**
-	 * Property get magic method
-	 *
-	 * <b>Properties</b>
-	 * Property | Type | Description
-	 * -------- | ---- | -----------
-	 *
-	 * @param string $property Property name
-	 * @return mixed
-	 */
-	public function __get($property) {
-		switch($property) {
-
-
-			default:
-				return parent::__get($property);
-		}
-	}
 
 	/**
 	 * Property set magic method
@@ -34,6 +17,8 @@ class QuestionPartBlank extends QuestionPart {
 	 * <b>Properties</b>
 	 * Property | Type | Description
 	 * -------- | ---- | -----------
+	 * answer | string | An expected answer (can be multiple)
+	 * question | string | The question
 	 *
 	 * @param string $property Property name
 	 * @param mixed $value Value to set
