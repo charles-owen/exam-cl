@@ -65,7 +65,7 @@ class QuestionParts {
 	/**
 	 * Add a question part option
 	 * @param QuestionPart $part Question part to add
-	 * @param $group If non-null, no two questions will be selected from the same group.
+	 * @param string $group If non-null, no two questions will be selected from the same group.
 	 */
 	public function add(QuestionPart $part, $group = null) {
 		$this->parts[] = ['part'=>$part, 'group'=>$group];
@@ -74,7 +74,8 @@ class QuestionParts {
 	/**
 	 * Present the question.
 	 * @param Question $question
-=	 * @param bool|null $answered True if displayed as answered
+	 * @param int $num Question number
+	 * @param bool|null $answered True if displayed as answered
 	 * @return string
 	 */
 	public function present(Question $question, $num, $answered = null) {

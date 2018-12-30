@@ -107,7 +107,8 @@ class Question {
 	/**
 	 * Present exam question
 	 * @param string $part Question part, like 'a'
-	 * @param null $answered True if answered, false if not, null if use key value from the view.
+	 * @param string|null $answered True if answered, false if not, null if use key value from the view.
+	 * @param string|null $class Additional class to add to p tag
 	 * @return string
 	 */
 	public function present_actual($part='', $answered=null, $class=null) {

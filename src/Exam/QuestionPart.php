@@ -6,7 +6,9 @@
 
 namespace CL\Exam;
 
-
+/**
+ * Base class for part of a question.
+ */
 class QuestionPart {
 
 	/**
