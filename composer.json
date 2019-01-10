@@ -14,6 +14,9 @@
       "CL\\Exam\\": "src/Exam"
     }
   },
+  "require" : {
+    "cl/course": "^2.1"
+  },
   "repositories": [
     {
       "type": "vcs",
@@ -22,7 +25,7 @@
   ],
   "extra": {
     "branch-alias": {
-      "dev-master": "0.0.x-dev"
+      "dev-master": "1.1.x-dev"
     }
   }
 }
