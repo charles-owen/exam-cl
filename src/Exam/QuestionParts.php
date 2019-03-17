@@ -41,6 +41,7 @@ class QuestionParts {
 	 * <b>Properties</b>
 	 * Property | Type | Description
 	 * -------- | ---- | -----------
+	 * num | int | Number of parts to present
 	 *
 	 * @param string $property Property name
 	 * @param mixed $value Value to set
@@ -49,6 +50,14 @@ class QuestionParts {
 		switch($property) {
 			case 'columns':
 				$this->columns = $value;
+				break;
+
+			case 'num':
+				$this->num = +$value;
+				break;
+
+			case 'shuffle':
+				$this->shuffle = $value;
 				break;
 
 			default:
@@ -79,6 +88,12 @@ class QuestionParts {
 	 * @return string
 	 */
 	public function present(Question $question, $num, $answered = null) {
+		$num = $num > 0 ? +$num : $this->num;
+
+		if($num === 0) {
+			$num = count($this->parts);
+		}
+
 		$html = '';
 
 		if($this->columns) {
@@ -90,7 +105,10 @@ class QuestionParts {
 			'u', 'v', 'w', 'x', 'y', 'z'];
 
 		$parts = $this->parts;
-		shuffle($parts);
+
+		if($this->shuffle) {
+			shuffle($parts);
+		}
 
 		$cnt = 0;
 		$groups = [];
@@ -130,4 +148,6 @@ class QuestionParts {
 
 	private $parts = [];
 	private $columns = false;
+	private $num = 0;
+	private $shuffle = false;
 }

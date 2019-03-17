@@ -8,6 +8,11 @@ namespace CL\Exam;
 
 /**
  * A question part where we fill in the blank.
+ *
+ * @cond
+ * @property string question
+ * @property string answer
+ * @endcond
  */
 class QuestionPartBlank extends QuestionPart {
 
@@ -47,14 +52,11 @@ class QuestionPartBlank extends QuestionPart {
 	 * @return string
 	 */
 	public function present_actual(Question $question, $part = '', $answered = null) {
-		$html = <<<HTML
-<div><p>$part 
-HTML;
+		$html = $this->present_start();
 
-		if(!$answered) {
-			$html .= $this->question;
-		} else {
-			$question = $this->question;
+		$question = str_replace("{part}", $part, $this->question);
+
+		if($answered) {
 			$answers = '';
 			foreach($this->answers as $answer) {
 				if(strlen($answers) > 0) {
@@ -64,12 +66,12 @@ HTML;
 				$answers .= $answer;
 			}
 
-			$html .= preg_replace('/\s_*\s/',
-				' ___' . $answers . '___ ', $question);
+			$question = preg_replace('/\s__*($|[^_])/',
+				' ___' . $answers . '___${1}', $question);
 		}
 
 
-		$html .= '</p></div>';
+		$html .= $question . $this->present_end($answered);
 
 		return $html;
 	}

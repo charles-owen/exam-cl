@@ -65,22 +65,6 @@ div.cl-exam {
     }
   }
 
-  form.cl-exam-form {
-
-    input.cl-exam-name {
-      width: 2em;
-      text-align: center;
-    }
-
-    input.cl-exam-seed {
-      width: 5em;
-      text-align: center;
-    }
-
-    input[type='submit'] {
-      width: 5em;
-    }
-  }
 
   span.cl-code {
     display: inline-block;
@@ -110,7 +94,7 @@ div.cl-exam {
     text-align: center;
   }
 
-  pre.code {
+  pre, pre.code {
     background-image: none;
     border: 0;
     padding: 0;
@@ -153,16 +137,15 @@ div.cl-exam {
     font-size: 9pt;
   }
 
+  div.cl-rubric {
+    font-style: italic;
+    font-size: 0.95em;
+    color: #ff4444;
+  }
+
   @import 'sass/partials/matching';
   @import 'sass/partials/multi';
 }
-
-
-
-
-
-
-
 
 
 @page {
@@ -185,15 +168,12 @@ div.cl-exam {
     padding: 0;
     box-sizing: border-box;
 
-    form.cl-exam-form {
-        display: none;
-    }
-
     .break {
       border: 0;
       page-break-before: always;
     }
   }
-
-
 }
+
+@import 'sass/partials/exam-form';
+@import 'sass/partials/crowdmark';

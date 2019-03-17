@@ -1,0 +1,31 @@
+
+form.cl-exam-form {
+  background: white;
+  width: 8.5in;
+  margin: 0 auto;
+  padding: 0.05em 1in 0.5em 1in;
+
+  p {
+    text-align: center;
+  }
+
+  input.cl-exam-name {
+    width: 2em;
+    text-align: center;
+  }
+
+  input.cl-exam-seed {
+    width: 5em;
+    text-align: center;
+  }
+
+  input[type='submit'] {
+    width: 5em;
+  }
+}
+
+@media print {
+  form.cl-exam-form {
+    display: none;
+  }
+}

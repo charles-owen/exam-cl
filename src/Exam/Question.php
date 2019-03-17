@@ -9,6 +9,10 @@ namespace CL\Exam;
 
 /**
  * Base class for an exam question
+ *
+ * @cond
+ * @property QuestionParts parts
+ * @endcond
  */
 class Question {
 
@@ -20,6 +24,8 @@ class Question {
 	public function __construct(ExamView $view, $num) {
 		$this->view = $view;
 		$this->num = $num;
+
+		$this->parts = new QuestionParts();
 
 		$view->seed();
 	}
@@ -44,6 +50,9 @@ class Question {
 
 			case 'rubric':
 				return $this->rubric;
+
+			case 'parts':
+				return $this->parts;
 
 			default:
 				$trace = debug_backtrace();
@@ -74,6 +83,14 @@ class Question {
 
 			case 'rubric':
 				$this->rubric = $value;
+				break;
+
+			case 'answer':
+				$this->answer = $value;
+				break;
+
+			case 'more':
+				$this->more = $value;
 				break;
 
 			default:
@@ -112,13 +129,27 @@ class Question {
 	 * @return string
 	 */
 	public function present_actual($part='', $answered=null, $class=null) {
+		if($answered === null && $this->view->key) {
+			$answered = true;
+		}
+
 		$cls = $class !== null ? 'class="' . $class . '"' : '';
 		$question = $this->question;
 		$question = preg_replace('/\R\R/', '</p><p>', $question);
 		$html = <<<HTML
-<p $cls>$this->num $question</p>
+<p $cls>$this->num $question</p>$this->more
 HTML;
 		$this->cnt = 0;
+
+		if($answered && $this->answer !== null) {
+			$html .= $this->answer;
+		}
+
+		if($answered && $this->rubric !== null) {
+			$html .= '<div class="cl-rubric">' . $this->rubric . '</div>';
+		}
+
+		$html .= $this->parts->present($this, 0, $answered);
 		return $html;
 	}
 
@@ -198,11 +229,16 @@ HTML;
 	private $values = [];
 
 	private $question = '';
+	private $more = '';
+	private $answer = null;
 
 	/// The view class
 	protected $view;
 	private $num;
 
 	// Display additional rubric information flag
-	private $rubric = false;
+	private $rubric = null;
+
+	// Question parts
+	private $parts;
 }

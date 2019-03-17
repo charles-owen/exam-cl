@@ -61,6 +61,9 @@ class ExamView extends \CL\Course\View {
 			case 'exam':
 				return $this->exam;
 
+			case 'crowdmark':
+				return $this->crowdmark;
+
 			default:
 				return parent::__get($property);
 		}
@@ -88,6 +91,22 @@ class ExamView extends \CL\Course\View {
 				$this->setTitle($value);
 				break;
 
+			case 'crowdmark':
+				$this->crowdmark = $value;
+				if($this->crowdmark) {
+					$this->style = <<<STYLE
+@page {
+  margin: 1.5in;
+}
+STYLE;
+
+				}
+				break;
+
+			case 'titlePageContent':
+				$this->titlePageContent = $value;
+				break;
+
 			default:
 				parent::__set($property, $value);
 				break;
@@ -102,32 +121,55 @@ class ExamView extends \CL\Course\View {
 	 * @return string HTML
 	 */
 	public function header($contentDiv = true, $nav = '') {
-		$html = '';
-
 		$keyCheck = $this->key ? " checked" : '';
 		$title = $this->site->siteName . ' ' . $this->title;
 		$keyStr = $this->key ? " Key-" . $this->exam : "&nbsp;";
 		$season = $this->section->season;
 		$year = $this->section->year;
 
+		$pageClass = 'cl-exam';
+		if($this->crowdmark) {
+			$pageClass .= ' cl-crowdmark';
+		}
+
 		$html = <<<HTML
-<div class="cl-exam">
+<form class="cl-exam-form" method="get">
+<p>Exam: <input class="cl-exam-name" name="exam" type="text" value="$this->exam">
+	Key: <input type="checkbox" name="key"$keyCheck>
+	Seed: <input class="cl-exam-seed" name="seed" type="text" value="$this->seed"> <input type="submit" name="reseed" value="New">
+	<input type="submit">
+</p>
+</form>
+<div class="$pageClass">
+HTML;
 
-	<form class="cl-exam-form" method="get">
-		<p>Exam: <input class="cl-exam-name" name="exam" type="text" value="$this->exam">
-			Key: <input type="checkbox" name="key"$keyCheck>
-			Seed: <input class="cl-exam-seed" name="seed" type="text" value="$this->seed"> <input type="submit" name="reseed" value="New">
-			<input type="submit">
-		</p>
-	</form>
-
+		if(!$this->crowdmark) {
+			$html .= <<<HTML
 	<header>
 		<div class="left"><h1>$title</h1>
 			<p><em>$season, $year exam $this->seed</em></p></div>
 		<div class="right"><h2 class="name">Name: <span class="blank">$keyStr</span><br>
-				PID: <span class="blank">&nbsp;</span></h2></div>
-	</header>
+				ID: <span class="blank">&nbsp;</span></h2></div>
+	</header>			
 HTML;
+		} else {
+			$html .= <<<HTML
+	<header>
+		<div class="title">
+			<h1>$title</h1>
+			<p><em>$season, $year exam $this->seed</em></p>
+			$this->titlePageContent
+		</div>
+		
+		<div class="name">
+			<p><span>Last Name: </span><span class="blank">&nbsp;</span></p>
+			<p><span>First Name: </span><span class="blank">&nbsp;</span></p>
+			<p><span>User ID: </span><span class="blank">&nbsp;</span></p>	
+		</div>
+	</header>		
+	<div class="break"></div>
+HTML;
+		}
 
 		return $html;
 	}
@@ -162,5 +204,6 @@ HTML;
 	private $key;
 	private $exam;
 	private $seed;
-
+	private $crowdmark = false;
+	private $titlePageContent = '';
 }
