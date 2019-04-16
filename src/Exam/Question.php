@@ -25,7 +25,7 @@ class Question {
 		$this->view = $view;
 		$this->num = $num;
 
-		$this->parts = new QuestionParts();
+		$this->parts = new QuestionParts($this);
 
 		$view->seed();
 	}
@@ -106,15 +106,14 @@ class Question {
 
 	/**
 	 * Present the question
-	 * @param string $part Optional question part (like 'a', 'b')
 	 * @return string HTML
 	 */
-	public function present($part="") {
-		$html = $this->present_actual($part, false);
+	public function present() {
+		$html = $this->present_actual(false);
 		
 		$html .= \Toggle::begin("Expand for answer.", "p");
 		
-		$html .= $this->present_actual($part, true);
+		$html .= $this->present_actual(true);
 
 		$html .= \Toggle::end();
 
@@ -123,12 +122,11 @@ class Question {
 
 	/**
 	 * Present exam question
-	 * @param string $part Question part, like 'a'
 	 * @param string|null $answered True if answered, false if not, null if use key value from the view.
 	 * @param string|null $class Additional class to add to p tag
 	 * @return string
 	 */
-	public function present_actual($part='', $answered=null, $class=null) {
+	public function present_actual($answered=null, $class=null) {
 		if($answered === null && $this->view->key) {
 			$answered = true;
 		}
@@ -168,7 +166,7 @@ HTML;
 	 * @param int $cnt
 	 * @return string
 	 */
-	protected function label($cnt) {
+	public function label($cnt) {
 		if($cnt <= 1) {
 			return '<p>';
 		}
@@ -184,7 +182,7 @@ HTML;
 	 * If the function is called with the same name again, the 
 	 * same random value is returned.
 	 */
-	protected function random_value($name, $fm, $to) {
+	public function random_value($name, $fm, $to) {
 		if(isset($this->values[$name])) {
 			return $this->values[$name];
 		}

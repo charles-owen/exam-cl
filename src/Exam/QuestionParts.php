@@ -10,6 +10,10 @@ namespace CL\Exam;
  * A collection of question parts that can be selected randomly.
  */
 class QuestionParts {
+    public function __construct(Question $question) {
+        $this->question = $question;
+    }
+
 	/**
 	 * Property get magic method
 	 *
@@ -78,6 +82,7 @@ class QuestionParts {
 	 */
 	public function add(QuestionPart $part, $group = null) {
 		$this->parts[] = ['part'=>$part, 'group'=>$group];
+		$part->owner = $this->question;
 	}
 
 	/**
@@ -126,8 +131,8 @@ class QuestionParts {
 			}
 
 
-			$label = $labels[$cnt];
-			$html .= $part['part']->present_actual($question, $label . ') ', $answered);
+			$label = $num === 1 || count($parts) === 1 ? '' : $labels[$cnt] . ') ';
+			$html .= $part['part']->present_actual($question, $label, $answered);
 
 			$cnt++;
 			if($cnt >= $num) {
@@ -150,4 +155,5 @@ class QuestionParts {
 	private $columns = false;
 	private $num = 0;
 	private $shuffle = false;
+	private $question;
 }

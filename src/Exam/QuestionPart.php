@@ -8,6 +8,10 @@ namespace CL\Exam;
 
 /**
  * Base class for part of a question.
+ *
+ * @cond
+ * @property Question owner
+ * @endcond
  */
 class QuestionPart {
 
@@ -20,7 +24,8 @@ class QuestionPart {
 	 * <b>Properties</b>
 	 * Property | Type | Description
 	 * -------- | ---- | -----------
-	 *
+	 * owner | Question | Question that owns this question part
+     *
 	 * @param string $property Property name
 	 * @return mixed
 	 */
@@ -31,6 +36,9 @@ class QuestionPart {
 
 			case 'rubric':
 				return $this->rubric;
+
+            case 'owner':
+                return $this->owner;
 
 			default:
 				$trace = debug_backtrace();
@@ -49,6 +57,7 @@ class QuestionPart {
 	 * <b>Properties</b>
 	 * Property | Type | Description
 	 * -------- | ---- | -----------
+     * owner | Question | Question that owns this question part
 	 *
 	 * @param string $property Property name
 	 * @param mixed $value Value to set
@@ -74,6 +83,10 @@ class QuestionPart {
 			case 'rubric':
 				$this->rubric = $value;
 				break;
+
+            case 'owner':
+                $this->owner = $value;
+                break;
 
 			default:
 				$trace = debug_backtrace();
@@ -146,10 +159,35 @@ class QuestionPart {
 		return $html;
 	}
 
+    /**
+     * Convert a part number to a roman numeral
+     * @param int $num 1 for i, 2 for ii, etc.
+     * @return string
+     */
+    public function roman($num) {
+        /// Roman numbers from 1-10
+        $roman = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x'];
+
+        return $roman[$num - 1];
+    }
+
+
+    /**
+     * Create random values in some integer range with a name.
+     * If the function is called with the same name again, the
+     * same random value is returned.
+     */
+    protected function random_value($name, $fm, $to) {
+        return $this->owner->random_value($name, $fm, $to);
+    }
+
+
+
 	private $generated = false;
 	private $question = '';
 	private $answer = '';
 	private $space = null;
 	private $page = false;
 	private $rubric = null;
+	private $owner = null;
 }

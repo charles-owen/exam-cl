@@ -17,28 +17,38 @@ class ExamView extends \CL\Course\View {
 	/**
 	 * ExamView constructor.
 	 * @param Site $site Site object
-	 * @param array $get $_GET
+	 * @param array $get $_GET - If set to null, this is a student examples page.
 	 * @param array $options Options to pass to startup
 	 * @param Server|null $server Server object
 	 */
-	public function __construct(Site $site, array $get, array $options = [], Server $server=null) {
-		if($server === null) {
-			$server = new Server();
-		}
+	public function __construct(Site $site, array $get=null, array $options = [], Server $server=null) {
+	    if($get !== null) {
+	        $this->actual = true;
 
-		$options['at-least'] = Member::TA;
-		parent::__construct($site, $options);
+            if($server === null) {
+                $server = new Server();
+            }
 
-		$this->addCSS('vendor/cl/exam/exam.css');
+            $options['at-least'] = Member::TA;
+            parent::__construct($site, $options);
 
-		$this->key = !empty($get['key']);
-		$this->exam = isset($get['exam']) ? strip_tags($get['exam']) : 'A';
-		$this->seed = isset($get['seed']) ? strip_tags($get['seed']) : mt_rand(1, 999999);
-		if(isset($get['reseed'])) {
-			$this->seed = mt_rand(1, 999999);
-			$keystr = $this->key ? "&key" : "";
-			$server->redirect("?exam=$this->exam&seed=$this->seed$keystr");
-		}
+            $this->key = !empty($get['key']);
+            $this->exam = isset($get['exam']) ? strip_tags($get['exam']) : 'A';
+            $this->seed = isset($get['seed']) ? strip_tags($get['seed']) : mt_rand(1, 999999);
+            if(isset($get['reseed'])) {
+                $this->seed = mt_rand(1, 999999);
+                $keystr = $this->key ? "&key" : "";
+                $server->redirect("?exam=$this->exam&seed=$this->seed$keystr");
+            }
+        } else {
+            parent::__construct($site, $options);
+
+            $this->actual = false;
+            $this->key = false;
+            $this->seed = mt_rand(1, 999999);
+        }
+
+        $this->addCSS('vendor/cl/exam/exam.css');
 
 		$this->seed();
 	}
@@ -121,6 +131,10 @@ STYLE;
 	 * @return string HTML
 	 */
 	public function header($contentDiv = true, $nav = '') {
+	    if(!$this->actual) {
+	        return parent::header($contentDiv, $nav);
+        }
+
 		$keyCheck = $this->key ? " checked" : '';
 		$title = $this->site->siteName . ' ' . $this->title;
 		$keyStr = $this->key ? " Key-" . $this->exam : "&nbsp;";
@@ -180,6 +194,10 @@ HTML;
 	 * @return string HTML
 	 */
 	public function footer($contentDiv = true) {
+	    if(!$this->actual) {
+	        return parent::footer($contentDiv);
+        }
+
 		return '';
 	}
 
@@ -206,4 +224,8 @@ HTML;
 	private $seed;
 	private $crowdmark = false;
 	private $titlePageContent = '';
+
+	// If true, this is an actual exam presentation rather than
+    // student example questions.
+	private $actual;
 }

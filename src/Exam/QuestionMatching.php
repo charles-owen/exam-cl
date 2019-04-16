@@ -91,8 +91,8 @@ QUESTION;
 	 * @param string $class Aditional class to add to the HTML
 	 * @return string HTML
 	 */
-	public function present_actual($part = '', $answered = null, $class=null) {
-		$html = parent::present_actual($part, $answered);
+	public function present_actual($answered = null, $class=null) {
+		$html = parent::present_actual($answered, $class);
 
 		if($answered === null && $this->view->key) {
 			$answered = true;
