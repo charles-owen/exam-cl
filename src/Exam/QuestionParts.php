@@ -8,6 +8,13 @@ namespace CL\Exam;
 
 /**
  * A collection of question parts that can be selected randomly.
+ * @cond
+ * @property bool shuffle
+ * @property int num
+ * @property bool columns
+ *
+ * @endcond
+ *
  */
 class QuestionParts {
     public function __construct(Question $question) {
@@ -46,6 +53,8 @@ class QuestionParts {
 	 * Property | Type | Description
 	 * -------- | ---- | -----------
 	 * num | int | Number of parts to present
+     * shuffle | bool | If true the parts are shuffled before presentation (default=false)
+     * columns | bool | If true, the parts are presented in two columns.
 	 *
 	 * @param string $property Property name
 	 * @param mixed $value Value to set
@@ -132,7 +141,9 @@ class QuestionParts {
 
 
 			$label = $num === 1 || count($parts) === 1 ? '' : $labels[$cnt] . ') ';
-			$html .= $part['part']->present_actual($question, $label, $answered);
+			$questionPart = $part['part']->present_actual($question, $label, $answered);
+            $questionPart = str_replace("{part}", $label, $questionPart);
+			$html .= $questionPart;
 
 			$cnt++;
 			if($cnt >= $num) {

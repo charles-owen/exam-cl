@@ -12,6 +12,7 @@ namespace CL\Exam;
  * @cond
  * @property string question
  * @property string answer
+ *
  * @endcond
  */
 class QuestionPartBlank extends QuestionPart {
