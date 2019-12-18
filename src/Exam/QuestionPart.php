@@ -24,6 +24,7 @@ class QuestionPart {
 	 * <b>Properties</b>
 	 * Property | Type | Description
 	 * -------- | ---- | -----------
+     * endColumns | bool | If set true, this question part ends columns
 	 * owner | Question | Question that owns this question part
      *
 	 * @param string $property Property name
@@ -31,6 +32,9 @@ class QuestionPart {
 	 */
 	public function __get($property) {
 		switch($property) {
+            case 'endColumns':
+                return $this->endColumns;
+
 			case 'question':
 				return $this->question;
 
@@ -57,6 +61,7 @@ class QuestionPart {
 	 * <b>Properties</b>
 	 * Property | Type | Description
 	 * -------- | ---- | -----------
+     * endColumns | bool | If set true, this question part ends columns
      * owner | Question | Question that owns this question part
 	 *
 	 * @param string $property Property name
@@ -86,6 +91,10 @@ class QuestionPart {
 
             case 'owner':
                 $this->owner = $value;
+                break;
+
+            case 'endColumns':
+                $this->endColumns = $value;
                 break;
 
 			default:
@@ -190,4 +199,5 @@ class QuestionPart {
 	private $page = false;
 	private $rubric = null;
 	private $owner = null;
+	private $endColumns = false;
 }

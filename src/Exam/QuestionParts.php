@@ -110,7 +110,9 @@ class QuestionParts {
 
 		$html = '';
 
-		if($this->columns) {
+		$columns = $this->columns;
+
+		if($columns) {
 			$html .= '<div class="cl-exam-columns"><div>';
 		}
 
@@ -139,6 +141,10 @@ class QuestionParts {
 				$groups[$part['group']] = true;
 			}
 
+			if($columns && $part['part']->endColumns) {
+			    $columns = false;
+                $html .= '</div></div>';
+            }
 
 			$label = $num === 1 || count($parts) === 1 ? '' : $labels[$cnt] . ') ';
 			$questionPart = $part['part']->present_actual($question, $label, $answered);
@@ -150,12 +156,12 @@ class QuestionParts {
 				break;
 			}
 
-			if($this->columns && $cnt === ($num / 2)) {
+			if($columns && $cnt === intval($num / 2)) {
 				$html .= '</div><div>';
 			}
 		}
 
-		if($this->columns) {
+		if($columns) {
 			$html .= '</div></div>';
 		}
 
