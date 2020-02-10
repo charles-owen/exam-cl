@@ -12,6 +12,10 @@ use CL\Course\Member;
 
 /**
  * View class for automatic exam creation.
+ *
+ * @property boolean key true to represent the exam key
+ * @property string exam Which exam (A, B, etc.)
+ * @property boolean crowdmark True to format for a Crowdmark exam
  */
 class ExamView extends \CL\Course\View {
 	/**
@@ -59,7 +63,10 @@ class ExamView extends \CL\Course\View {
 	 * <b>Properties</b>
 	 * Property | Type | Description
 	 * -------- | ---- | -----------
-	 *
+	 * key | boolean | true to represent the exam key
+     * exam | string | Which exam (A, B, etc.)
+     * crowdmark | boolean | True to format for a Crowdmark exam
+     *
 	 * @param string $property Property name
 	 * @return mixed
 	 */

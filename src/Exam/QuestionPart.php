@@ -11,6 +11,7 @@ namespace CL\Exam;
  *
  * @cond
  * @property Question owner
+ * @property string rubric Rubric information to present with the exam
  * @endcond
  */
 class QuestionPart {
