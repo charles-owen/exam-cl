@@ -58,18 +58,26 @@ class QuestionPartBlank extends QuestionPart {
 		$question = str_replace("{part}", $part, $this->question);
 
 		if($answered) {
-			$answers = '';
-			foreach($this->answers as $answer) {
-				if(strlen($answers) > 0) {
-					$answers .= ' <em>or</em> ';
-				}
+            if(count($this->answers) > 0) {
+                $answers = '';
+                foreach($this->answers as $answer) {
+                    if(strlen($answers) > 0) {
+                        $answers .= ' <em>or</em> ';
+                    }
 
-				$answers .= $answer;
-			}
+                    $answers .= $answer;
+                }
 
-			$question = preg_replace('/\s__*($|[^_])/',
-				' ___' . $answers . '___${1}', $question);
-		}
+                $question = preg_replace('/\s__*($|[^_])/',
+                    ' ___' . $answers . '___${1}', $question);
+            } else {
+                $question = preg_replace('/_{2,}/', '_', $question);
+            }
+
+		} else {
+            // Remove any provided answers
+            $question = preg_replace('/___[^_\n]+___/', '______', $question);
+        }
 
 
 		$html .= $question . $this->present_end($answered);

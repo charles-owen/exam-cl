@@ -37,7 +37,7 @@ class ExamView extends \CL\Course\View {
             parent::__construct($site, $options);
 
             $this->key = !empty($get['key']);
-            $this->exam = isset($get['exam']) ? strip_tags($get['exam']) : 'A';
+            $this->exam = strtoupper(isset($get['exam']) ? strip_tags($get['exam']) : 'A' );
             $this->seed = isset($get['seed']) ? strip_tags($get['seed']) : mt_rand(1, 999999);
             if(isset($get['reseed'])) {
                 $this->seed = mt_rand(1, 999999);
@@ -85,6 +85,26 @@ class ExamView extends \CL\Course\View {
 				return parent::__get($property);
 		}
 	}
+
+
+    /**
+     * Convert the exam ID (A, B, etc.) to an index value.
+     *
+     * Index values start at 1, so A=1, B=2, etc. If $cnt is
+     * specified, the index will start again after each $cnt exams.
+     * For example, if $cnt = 3, then A=1, B=2, C=3, D=1, E=2, etc.
+     *
+     * @param int $cnt Maximum index value.
+     * @return int Index value.
+     */
+	public function index($cnt = 0) {
+	    $ndx = ord($this->exam) - 1;
+	    if($cnt > 0) {
+	        return $ndx % $cnt + 1;
+        } else {
+	        return $ndx + 1;
+        }
+    }
 
 	/**
 	 * Property set magic method
