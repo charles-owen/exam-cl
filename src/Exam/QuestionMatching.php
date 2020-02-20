@@ -8,6 +8,8 @@ namespace CL\Exam;
 
 /**
  * Matching questions for an exam.
+ * @property int count Number of items to include in the question
+ * @property int count2 Number of options to choose from on the right
  */
 class QuestionMatching extends Question {
 	/**
@@ -63,7 +65,9 @@ QUESTION;
 	 * <b>Properties</b>
 	 * Property | Type | Description
 	 * -------- | ---- | -----------
-	 *
+	 * count | int | Number of items to include in the question
+     * count2 | int | Number of options to choose from on the right
+     *
 	 * @param string $property Property name
 	 * @param mixed $value Value to set
 	 */
