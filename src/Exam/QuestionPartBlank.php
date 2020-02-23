@@ -71,7 +71,8 @@ class QuestionPartBlank extends QuestionPart {
                 $question = preg_replace('/\s__*($|[^_])/',
                     ' ___' . $answers . '___${1}', $question);
             } else {
-                $question = preg_replace('/_{2,}/', '_', $question);
+//                $question = preg_replace('/_{2,}/', '_', $question);
+                $question = preg_replace('/([^_])__*([^_\n]+)__*([^_])/', '$1<span class="underline code"> $2 </span>$3', $question);
             }
 
 		} else {

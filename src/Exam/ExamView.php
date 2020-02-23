@@ -140,6 +140,10 @@ STYLE;
 				}
 				break;
 
+            case 'matching':
+                $this->matching = $value;
+                break;
+
 			case 'titlePageContent':
 				$this->titlePageContent = $value;
 				break;
@@ -199,14 +203,29 @@ HTML;
 		<div class="title">
 			<h1>$title</h1>
 			<p><em>$season, $year exam $this->seed</em></p>
+HTML;
+
+			if($this->matching) {
+			    $html .= '<div style="height:4in">&nbsp;</div>';
+            }
+
+			$html .= <<<HTML
 			$this->titlePageContent
 		</div>
-		
+HTML;
+
+			if(!$this->matching) {
+
+			    $html .= <<<HTML
 		<div class="name">
 			<p><span>Last Name: </span><span class="blank">&nbsp;</span></p>
 			<p><span>First Name: </span><span class="blank">&nbsp;</span></p>
 			<p><span>User ID: </span><span class="blank">&nbsp;</span></p>	
 		</div>
+HTML;
+            }
+
+			$html .= <<<HTML
 	</header>		
 	<div class="break"></div>
 HTML;
@@ -250,6 +269,7 @@ HTML;
 	private $exam;
 	private $seed;
 	private $crowdmark = false;
+	private $matching = false;
 	private $titlePageContent = '';
 
 	// If true, this is an actual exam presentation rather than
