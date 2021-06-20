@@ -15,7 +15,7 @@
     }
   },
   "require" : {
-    "cl/course": "^2.3.0"
+    "cl/course": "^2.3.1"
   },
   "repositories": [
     {
